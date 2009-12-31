@@ -1,0 +1,9 @@
+{
+	"id": "org.webosinternals.sdldoom",
+	"version": "1.1.0",
+	"vendor": "WebOS Internals",
+	"type": "web",
+	"main": "index.html",
+	"title": "DOOM!",
+	"icon": "icon.png"
+}
