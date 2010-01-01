@@ -1,9 +1,15 @@
 {
-	"id": "org.webosinternals.sdldoom",
-	"version": "1.1.0",
-	"vendor": "WebOS Internals",
-	"type": "web",
-	"main": "index.html",
-	"title": "DOOM!",
-	"icon": "icon.png"
+       "title": "DOOM!",
+       "id": "org.webosinternals.sdldoom",
+       "version": "1.1.1",
+       "release_date": "1-Jan-2010",
+       "vendor": "WebOS Internals",
+       "vendor_email": "support@webos-internals.org",
+       "vendor_url": "http://www.webos-internals.org/wiki/Application:Doom",
+       "type": "web",
+       "main": "index.html",
+       "icon": "icon.png",
+       "removable": "true",
+       "noWindow": true,
+       "noDeprecatedStyles": true
 }
