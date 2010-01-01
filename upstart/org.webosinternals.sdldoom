@@ -1,4 +1,2 @@
-service
-
 chdir /media/cryptofs/apps/usr/palm/applications/org.webosinternals.sdldoom/bin
-exec  /media/cryptofs/apps/usr/palm/applications/org.webosinternals.sdldoom/bin/doom
+exec  /media/cryptofs/apps/usr/palm/applications/org.webosinternals.sdldoom/bin/doom &
