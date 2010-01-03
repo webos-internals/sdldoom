@@ -133,6 +133,36 @@ void I_StartFrame (void)
 
 }
 
+// Rotates the screen 180 degrees
+// so the pre's keyboard is on the left
+// which seems more natural.
+void I_Rotate180 (void)
+{
+    int i;
+    unsigned char tmp;
+
+    // XXX: Is there a way to do this via sdl, etc?
+    // This seems unnecessarily expensive
+
+    // XXX if performance is an issue, using a larger
+    // data type to do the swap in chunks would
+    // help.
+    unsigned char * ptr_orig = screen->pixels;
+    unsigned char * ptr_reverse = (unsigned char *)(screen->pixels) + (SCREENHEIGHT-1)*SCREENWIDTH-1;
+
+    // Here we simply rotate surface in-place
+    i = 0;
+    while( ptr_orig != ptr_reverse )
+    {
+        tmp = *ptr_orig;
+        *ptr_orig = *ptr_reverse;
+        *ptr_reverse = tmp;
+
+        ptr_orig++;
+        ptr_reverse--;
+    }
+}
+
 /* This processes SDL events */
 void I_GetEvent(SDL_Event *Event)
 {
@@ -243,7 +273,7 @@ void I_FinishUpdate (void)
 	    return;
 	}
     }
-    if ((multiply == 1) && SDL_MUSTLOCK(screen))
+    if (multiply == 1)
     {
 	unsigned char *olineptr;
 	unsigned char *ilineptr;
@@ -366,6 +396,10 @@ void I_FinishUpdate (void)
     if ( SDL_MUSTLOCK(screen) ) {
 	SDL_UnlockSurface(screen);
     }
+
+    // So the keyboard is on the left
+    I_Rotate180();
+
     SDL_UpdateRect(screen, 0, 0, 0, 0);
 }
 
@@ -461,11 +495,7 @@ void I_InitGraphics(void)
     /* Set up the screen displays */
     w = SCREENWIDTH * multiply;
     h = SCREENHEIGHT * multiply;
-    if (multiply == 1 && !SDL_MUSTLOCK(screen) ) {
-	screens[0] = (unsigned char *) screen->pixels;
-    } else {
 	screens[0] = (unsigned char *) malloc (SCREENWIDTH * SCREENHEIGHT);
-        if ( screens[0] == NULL )
-            I_Error("Couldn't allocate screen memory");
-    }
+    if ( screens[0] == NULL )
+        I_Error("Couldn't allocate screen memory");
 }
